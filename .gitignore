@@ -1,42 +1,76 @@
 
-# Visual Studio files
+# ==============================
+# Visual Studio / IDE
+# ==============================
 .vs/
+.vscode/
 *.suo
 *.user
+*.userosscache
+*.sln.docstates
 VSWorkspaceState.json
 
-# Compiled executables
+# ==============================
+# Compiled files and binaries
+# ==============================
 *.exe
 *.dll
 *.obj
 *.o
+*.pdb
+*.ilk
+*.lib
+*.a
+*.so
 
-# Temporary files and logs
-*.log
-err
-out
-*.tmp
+# ==============================
+# Build directories
+# ==============================
+build/
+cmake-build-*/
+out/build/
 
-# SQLite temporary database files
-*.db-shm
-*.db-wal
+# ==============================
+# SQLite local databases
+# ==============================
+/library
+/library.db
+/library.db-wal
+/library.db-shm
+*.sqlite
 *.sqlite-shm
 *.sqlite-wal
 
-# Local databases - review before committing
-library
-*.sqlite
-*.db
+# ==============================
+# Logs and temporary files
+# ==============================
+err
+out
+*.log
+*.tmp
+*.bak
 
-# Environment variables and secrets
+# ==============================
+# Secrets and credentials
+# ==============================
 .env
 .env.*
 !.env.example
+*token*
 
-# External tunnelling tools
-cloudflared.exe
-ngrok.exe
+# ==============================
+# External deployment tools
+# ==============================
+/cloudflared
+/cloudflared.exe
+/ngrok
+/ngrok.exe
+/setup_ngrok_token.bat
+/install_ngrok.bat
+/start_live.bat
+/launch_live_cloudflare.bat
 
-# Build directories
-build/
-cmake-build-*/
+# ==============================
+# Duplicate archives
+# ==============================
+/main_cpp.zip
