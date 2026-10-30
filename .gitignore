@@ -1,0 +1,42 @@
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+VSWorkspaceState.json
+
+# Compiled executables
+*.exe
+*.dll
+*.obj
+*.o
+
+# Temporary files and logs
+*.log
+err
+out
+*.tmp
+
+# SQLite temporary database files
+*.db-shm
+*.db-wal
+*.sqlite-shm
+*.sqlite-wal
+
+# Local databases - review before committing
+library
+*.sqlite
+*.db
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# External tunnelling tools
+cloudflared.exe
+ngrok.exe
+
+# Build directories
+build/
+cmake-build-*/
