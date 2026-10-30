@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibroSphere | Modern Library Management System</title>
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="/index.html" class="brand">
+                <div class="brand-icon">📚</div>
+                <span>LibroSphere</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/index.html" class="nav-link active">Catalog</a></li>
+                    <li><a href="/my-loans.html" class="nav-link" id="nav-myloans-link" style="display: none;">My Books</a></li>
+                    <li><a href="/admin.html" class="nav-link" id="nav-admin-link" style="display: none;">Staff Desk</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-auth" id="nav-auth-container">
+                <a href="/login.html" class="btn btn-outline btn-sm">Sign In</a>
+                <a href="/register.html" class="btn btn-primary btn-sm">Join Library</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="hero-tagline">
+                <span>🏛️</span> High-Performance C++ &amp; SQLite Powered Library System
+            </div>
+            <h1 class="hero-title">
+                Expand Your Mind, <span>One Page At A Time</span>
+            </h1>
+            <p class="hero-desc">
+                Discover world-class literature, cutting-edge computer science texts, deep philosophy, and scientific breakthroughs in our university library catalog.
+            </p>
+
+            <div class="hero-search-box">
+                <span style="font-size: 1.25rem;">🔍</span>
+                <input type="text" id="hero-search-input" placeholder="Search by book title, author name, or ISBN..." autocomplete="off">
+                <button class="btn btn-primary" onclick="document.getElementById('catalog-section')?.scrollIntoView({ behavior: 'smooth' });">
+                    Browse Books
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Counter Bar -->
+    <div class="container stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon">📖</div>
+                <div>
+                    <div class="stat-val" id="stat-total-titles">-</div>
+                    <div class="stat-lbl">Curated Titles</div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon" style="background-color: #e0f2fe; color: #0284c7;">📚</div>
+                <div>
+                    <div class="stat-val" id="stat-total-copies">-</div>
+                    <div class="stat-lbl">Total Copies</div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon" style="background-color: #ecfdf5; color: #059669;">✨</div>
+                <div>
+                    <div class="stat-val" id="stat-available-copies">-</div>
+                    <div class="stat-lbl">Available Now</div>
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon" style="background-color: #fef3c7; color: #d97706;">🎓</div>
+                <div>
+                    <div class="stat-val" id="stat-total-members">-</div>
+                    <div class="stat-lbl">Registered Readers</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Catalog Section -->
+    <main class="container" id="catalog-section" style="padding-top: 1rem;">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Library Collection</h2>
+                <p class="section-subtitle">Real-time availability tracking with instant checkout and reservations</p>
+            </div>
+            <div id="catalog-results-count" style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">
+                Loading...
+            </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-bar">
+            <div class="category-pills" id="category-pills-container">
+                <button class="category-pill active">Loading genres...</button>
+            </div>
+
+            <div class="filter-actions">
+                <input type="text" id="search-books-input" class="form-input" placeholder="Search catalog..." style="width: 200px; padding: 0.4rem 0.75rem; font-size: 0.85rem;">
+                
+                <label class="toggle-label">
+                    <input type="checkbox" id="filter-available-toggle">
+                    <span>Only In Stock</span>
+                </label>
+
+                <select id="sort-books-select" class="select-control">
+                    <option value="title">Sort by Title (A-Z)</option>
+                    <option value="author">Sort by Author</option>
+                    <option value="year">Sort by Publication Year</option>
+                    <option value="popular">Sort by Most Borrowed</option>
+                    <option value="newest">Sort by Recently Added</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Book Card Grid -->
+        <div class="book-grid" id="book-grid-container">
+            <!-- Dynamic cards injected via catalog.js -->
+        </div>
+    </main>
+
+    <!-- Book Detail Modal -->
+    <div class="modal-backdrop" id="book-detail-modal">
+        <div class="modal" style="max-width: 680px;">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-book-title">Book Details</h3>
+                <button class="modal-close" onclick="Catalog.closeBookModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <img id="modal-book-cover" src="" alt="Book Cover" style="width: 140px; height: 200px; object-fit: cover; border-radius: var(--radius-md); box-shadow: var(--shadow-md);">
+                    <div style="flex: 1; min-width: 240px;">
+                        <h4 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem;" id="modal-book-title-inner"></h4>
+                        <p style="font-size: 1rem; color: var(--text-muted); font-weight: 600; margin-bottom: 1rem;" id="modal-book-author"></p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem;">
+                            <div><strong style="color: var(--text-subtle);">Category:</strong> <span id="modal-book-category"></span></div>
+                            <div><strong style="color: var(--text-subtle);">ISBN:</strong> <code id="modal-book-isbn"></code></div>
+                            <div><strong style="color: var(--text-subtle);">Publisher:</strong> <span id="modal-book-publisher"></span></div>
+                            <div><strong style="color: var(--text-subtle);">Location:</strong> <span id="modal-book-shelf" style="color: var(--primary); font-weight: 600;"></span></div>
+                        </div>
+
+                        <div style="margin-top: 1rem; padding: 0.6rem 0.85rem; background: var(--bg-surface-alt); border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 600;" id="modal-book-copies">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted);">Synopsis</h5>
+                    <p id="modal-book-desc" style="color: var(--text-main); line-height: 1.6; font-size: 0.95rem;"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="Catalog.closeBookModal()">Close</button>
+                <button class="btn btn-primary" id="modal-borrow-btn">Borrow Volume (14 Days)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div class="brand-icon" style="width: 32px; height: 32px; font-size: 1rem;">📚</div>
+                <div>
+                    <strong>LibroSphere</strong> &mdash; Modern Library Management System
+                    <div style="font-size: 0.8rem; color: var(--text-subtle);">Engineered with C++17 Crow Microframework, Windows SQLite3, &amp; Vanilla Web Frontend</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1rem; font-size: 0.85rem;">
+                <a href="/login.html" style="text-decoration: underline;">Staff Sign In</a>
+                <span>&bull;</span>
+                <a href="/register.html" style="text-decoration: underline;">New Membership</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/catalog.js"></script>
+</body>
+</html>

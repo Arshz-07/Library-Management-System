@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Library Card | LibroSphere</title>
+    <link rel="stylesheet" href="/css/variables.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Navbar -->
+    <header class="navbar" style="background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+        <div class="container nav-container">
+            <a href="/index.html" class="brand" style="color: white;">
+                <div class="brand-icon">📚</div>
+                <span>LibroSphere</span>
+            </a>
+            <div>
+                <a href="/index.html" style="color: #cbd5e1; font-size: 0.9rem; font-weight: 600;">&larr; Back to Catalog</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Register Card -->
+    <main style="flex: 1; display: flex; align-items: center; justify-content: center; padding: 2.5rem 1.5rem;">
+        <div style="background: white; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); padding: 2.5rem; width: 100%; max-width: 480px;">
+            
+            <div style="text-align: center; margin-bottom: 1.75rem;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎓</div>
+                <h1 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;">Join the University Library</h1>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Receive an instant digital library card &amp; borrowing privileges</p>
+            </div>
+
+            <!-- Registration Form -->
+            <form id="register-form" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" id="reg-name" class="form-input" required placeholder="e.g. Robert Smith" autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">University Email Address *</label>
+                    <input type="email" id="reg-email" class="form-input" required placeholder="e.g. robert@university.edu">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Password *</label>
+                        <input type="password" id="reg-password" class="form-input" required minlength="6" placeholder="Min 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" id="reg-phone" class="form-input" placeholder="+1-555-0182">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Account Type</label>
+                    <select id="reg-role" class="form-select">
+                        <option value="member">Student / General Reader</option>
+                        <option value="librarian">Staff Librarian</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 0.75rem;">
+                    Create Library Account
+                </button>
+            </form>
+
+            <div style="text-align: center; margin-top: 1.75rem; font-size: 0.9rem; color: var(--text-muted);">
+                Already have a library account?
+                <a href="/login.html" style="color: var(--primary); font-weight: 700; text-decoration: underline;">Sign In here</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/api.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        async function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value;
+            const phone = document.getElementById('reg-phone').value.trim();
+            const role = document.getElementById('reg-role').value;
+
+            try {
+                const user = await Auth.register(name, email, password, phone, role);
+                if (user.role === 'admin' || user.role === 'librarian') {
+                    window.location.href = '/admin.html';
+                } else {
+                    window.location.href = '/my-loans.html';
+                }
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
