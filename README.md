@@ -163,9 +163,9 @@ erDiagram
 | Role | Name | Identifier / Email | Password | Card Code |
 | :--- | :--- | :--- | :--- | :--- |
 | **Admin** | Chief Librarian | `admin` or `admin@librosphere.org` | `admin123` | `ADM-001` |
-| **Librarian** | Sarah Jenkins | `sarah_lib` or `sarah@librosphere.org` | `lib123` | `LIB-101` |
-| **Student** | Alice Reader | `alice_reader` or `alice@university.edu` | `alice123` | `MEM-201` |
-| **Student** | John Doe | `john_doe` or `john@university.edu` | `john123` | `MEM-202` |
+| **Librarian** | Arsh | `Arsh_lib` or `Arsh@librosphere.org` | `lib123` | `LIB-101` |
+| **Student** | Harsh | `harsh` or `harsh@university.edu` | `harsh123` | `MEM-201` |
+| **Student** | Manveer | `Manveer` or `meanveer@university.edu` | `manveer123` | `MEM-202` |
 
 > *Tip: You can switch between demo accounts instantly using the 1-click buttons on [`login.html`](http://localhost:8080/login).*
 
